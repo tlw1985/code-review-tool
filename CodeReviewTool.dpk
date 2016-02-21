@@ -1,0 +1,43 @@
+package CodeReviewTool;
+
+{$R *.res}
+{$ALIGN 8}
+{$ASSERTIONS ON}
+{$BOOLEVAL OFF}
+{$DEBUGINFO ON}
+{$EXTENDEDSYNTAX ON}
+{$IMPORTEDDATA ON}
+{$IOCHECKS ON}
+{$LOCALSYMBOLS ON}
+{$LONGSTRINGS ON}
+{$OPENSTRINGS ON}
+{$OPTIMIZATION OFF}
+{$OVERFLOWCHECKS OFF}
+{$RANGECHECKS OFF}
+{$REFERENCEINFO ON}
+{$SAFEDIVIDE OFF}
+{$STACKFRAMES ON}
+{$TYPEDADDRESS OFF}
+{$VARSTRINGCHECKS ON}
+{$WRITEABLECONST OFF}
+{$MINENUMSIZE 1}
+{$IMAGEBASE $400000}
+{$IMPLICITBUILD OFF}
+{$DEFINE DEBUG}
+
+requires
+  rtl,
+  designide,
+  vclactnband,
+  vclx,
+  vcl;
+
+contains
+  RegisterDockForm in 'src\RegisterDockForm.pas',
+  MessagesSingleton in 'src\MessagesSingleton.pas',
+  MessageHolder in 'src\MessageHolder.pas',
+  CreateMessage in 'src\CreateMessage.pas' {CreateMessageFrm},
+  CodeMessages in 'src\CodeMessages.pas',
+  BaseDockFrm in 'src\BaseDockFrm.pas' {BaseDockForm};
+
+end.

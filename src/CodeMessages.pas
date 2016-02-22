@@ -3,7 +3,13 @@ unit CodeMessages;
 interface
 
 uses
-  ToolsAPi, BaseDockFrm, SysUtils, MessagesSingleton, graphics, forms;
+  ToolsAPi,
+  BaseDockFrm,
+  SysUtils,
+  MessagesSingleton,
+  graphics,
+  forms,
+  controls;
 
   type
     TCodeMessages = class
@@ -11,17 +17,17 @@ uses
        fSource: IOTASourceEditor;
        FMess: TMessagesSingleton;
        function GetSource(Module: IOTAMOdule): IOTASourceEditor;
-       function GetGraphic: TGraphic;
      public
        procedure AddMessagesToList(AMessageToAdd: String);
        function ViewMessage: String;
        Destructor Destroy; Override;
-     end;
+       function GetGraphic: TGraphic;
+    end;
 
 implementation
 
 uses
-  MessageHolder, Dialogs, classes, controls;
+  MessageHolder, Dialogs, classes;
 
 Destructor TCodeMessages.Destroy;
 begin
@@ -35,16 +41,9 @@ var
   Bitmap : TBitMap;
 begin
 
-  if FileExists(ExtractFilePath(Application.ExeName + 'delphi dot.bmp')) then
-  begin
-    showmessage('OK');
-  end;
-
   Bitmap := TBitmap.create;
     with Bitmap do begin
-      LoadFromFile('C:\Users\tim\Desktop\cross.bmp');
-    //  Transparent := True;
-     // TransParentColor := BitMap.canvas.pixels[50,50];
+      LoadFromFile('C:\Users\tim\Desktop\DockForm Delphi 7\delphi dot.bmp');
     end;
 
     Result := Bitmap;
@@ -103,9 +102,10 @@ var
   EditPos: TOTAEditPos;
 
   EditorServices: IOTAEditorServices;
+  Canvas: TControlCanvas;
   Buffer: IOTAEditBuffer;
   Position: IOTAEditPosition;
-  Canvas: TControlCanvas; 
+
 begin
 
   if not Supports(BorlandIDEServices, IOTAEditorServices, EditorServices) then
@@ -115,7 +115,7 @@ begin
 
   MS := BorlandIDEServices As IOTAModuleServices;
   Module := MS.CurrentModule;
-  
+
   if not assigned(FSource) then
   begin
     FSource := GetSource(Module);
@@ -130,9 +130,6 @@ begin
   Canvas := TControlCanvas.Create;
   Canvas.Control := Buffer.TopView.GetEditWindow.Form.ActiveControl;
   Canvas.Draw(0, 0, GetGraphic);
-
-//  Buffer.TopView.GetEditWindow.Form.ActiveControl.Controls
-//  list := TList.Create;
 
  { for i :=0 to  .ControlCount-1 do
   begin
@@ -162,10 +159,9 @@ begin
   begin
     Fmess := TMessagesSingleton.Create;
   end;
-  
+
   Fmess.AddMessages(lMessageContainer);
 end;
 
 end.
 
- 

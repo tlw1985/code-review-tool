@@ -3,8 +3,19 @@ unit CreateMessage;
 interface
 
 uses
-  Windows, CodeMessages, SysUtils, Variants, Classes, Graphics, Controls, Forms,
-  Dialogs, ToolsAPi, BaseDockFrm, StdCtrls,  MessageHolder;
+  Windows,
+  CodeMessages,
+  SysUtils,
+  Variants,
+  Classes,
+  Graphics,
+  Controls,
+  Forms,
+  Dialogs,
+  ToolsAPi,
+  BaseDockFrm,
+  StdCtrls,
+  MessageHolder;
 
 type
   TCreateMessageFrm = class(TBaseDockForm)
@@ -25,12 +36,12 @@ type
 
 var
   CreateMessageFrm: TCreateMessageFrm;
+  iEditorIndex: Integer;
 
 implementation
 
 var
   FormInstance: TBaseDockForm = nil;
-
 
 {$R *.dfm}
 
@@ -40,6 +51,7 @@ begin
   begin
     FCodeMessages := TCodeMessages.Create;
   end;
+
   FCodeMessages.AddMessagesToList(AddMessage.Text);
 end;
 

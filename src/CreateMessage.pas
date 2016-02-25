@@ -22,9 +22,13 @@ type
     AddMessageButton: TButton;
     AddMessage: TMemo;
     Button1: TButton;
+    NextButton: TButton;
+    PrevButton: TButton;
     procedure AddMessageButtonClick(Sender: TObject);
     procedure Button1Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
+    procedure NextButtonClick(Sender: TObject);
+    procedure PrevButtonClick(Sender: TObject);
   private
     FCodeMessages: TCodeMessages;
   public
@@ -53,6 +57,7 @@ begin
   end;
 
   FCodeMessages.AddMessagesToList(AddMessage.Text);
+  AddMessage.Clear;
 end;
 
 class procedure TCreateMessageFrm.CreateExampleDockForm;
@@ -86,7 +91,7 @@ begin
   begin
     FCodeMessages := TCodeMessages.Create;
   end;
-
+  AddMessage.Clear;
   AddMessage.Text := FCodeMessages.ViewMessage;
 end;
 
@@ -95,6 +100,20 @@ procedure TCreateMessageFrm.FormClose(Sender: TObject;
 begin
   inherited;
    Destroy;
+end;
+
+procedure TCreateMessageFrm.NextButtonClick(Sender: TObject);
+begin
+  inherited;
+  AddMessage.Clear;
+  AddMessage.Text := FCodeMessages.NextMessage;
+end;
+
+procedure TCreateMessageFrm.PrevButtonClick(Sender: TObject);
+begin
+  inherited;
+  AddMessage.Clear;
+  AddMessage.Text := FCodeMessages.PrevMessage;
 end;
 
 end.

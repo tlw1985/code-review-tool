@@ -47,7 +47,7 @@ var
 begin
   Bitmap := TBitmap.create;
     with Bitmap do begin
-      LoadFromFile('C:\Users\tim\Desktop\DockForm Delphi 7\delphi dot.bmp');
+     // LoadFromFile('C:\Users\tim\Desktop\DockForm Delphi 7\delphi dot.bmp');
     end;
   Result := Bitmap;
 end;
@@ -127,9 +127,9 @@ begin
     Exit;
 
   Position := Buffer.EditPosition;
-  Canvas := TControlCanvas.Create;
-  Canvas.Control := Buffer.TopView.GetEditWindow.Form.ActiveControl;
-  Canvas.Draw(0, 0, GetGraphic);
+ // Canvas := TControlCanvas.Create;
+ // Canvas.Control := Buffer.TopView.GetEditWindow.Form.ActiveControl;
+ // Canvas.Draw(0, 0, GetGraphic);
 
   if not Assigned(Position) then
     Exit;
@@ -163,8 +163,13 @@ Var
   lMessageHolder: TMessageHolder;
   EditPos: IOTAEditView;
 Begin
+  if fMessageLocation >= FMess.ListOfMessages.Count then
+  begin
+    fMessageLocation := 0;
+  end;
 
   inc(fMessageLocation);
+  
   If fModule = Nil Then Exit;
   With fModule Do
   Begin
@@ -204,10 +209,14 @@ Var
   lMessageHolder: TMessageHolder;
   EditPos: IOTAEditView;
 Begin
-  if not fMessageLocation = 0 then
-  dec(fMessageLocation);
+  if not fMessageLocation <= 0 then
+  begin
+    dec(fMessageLocation);
+  end;
+
+  If fModule = Nil Then
+  Exit;
   
-  If fModule = Nil Then Exit;
   With fModule Do
   Begin
     iFileCount := GetModuleFileCount;
@@ -221,6 +230,8 @@ Begin
         begin
           EditPos := lSource.EditViews[0];
           EditPos.Position.GotoLine(lMessageHolder.LineNumber);
+          EditPos.MoveViewToCursor;
+          EditPos.Paint;
          result := lMessageHolder.Messages + FileName + ' Line = ' + inttostr(EditPos.Buffer.GetLinesInBuffer);
         end;
       end;
